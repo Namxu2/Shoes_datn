@@ -46,6 +46,9 @@ public class HomeController {
     @Autowired
     private PromotionService promotionService;
 
+    @Autowired
+    private SoleService soleService;
+
     @GetMapping
     public String homePage(Model model){
 
@@ -68,6 +71,10 @@ public class HomeController {
         //Lấy 5 bài viết mới nhất
         List<Post> posts = postService.getLatesPost();
         model.addAttribute("posts", posts);
+
+        //lấy danh sách đế giày
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles",soles);
 
         return "shop/index";
     }
@@ -93,6 +100,10 @@ public class HomeController {
         //Lấy danh sách nhãn hiệu
         List<Brand> brands = brandService.getListBrand();
         model.addAttribute("brands",brands);
+
+        //Lấy danh sách đế giày
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles",soles);
 
         // Lấy size có sẵn
         List<Integer> availableSizes = productService.getListAvailableSize(id);
@@ -176,6 +187,15 @@ public class HomeController {
             brandIds.add(brand.getId());
         }
         model.addAttribute("brandIds", brandIds);
+
+        //đế giày
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles",soles);
+        List<Long> soleIds = new ArrayList<>();
+        for (Sole sole : soles) {
+            soleIds.add(sole.getId());
+        }
+        model.addAttribute("soleIds", soleIds);
 
         //Lấy danh sách danh mục
         List<Category> categories = categoryService.getListCategories();

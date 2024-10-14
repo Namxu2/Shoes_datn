@@ -5,10 +5,7 @@ import com.fpoly.datn.model.request.CreateProductRequest;
 import com.fpoly.datn.model.request.CreateSizeCountRequest;
 import com.fpoly.datn.model.request.UpdateFeedBackRequest;
 import com.fpoly.datn.security.CustomUserDetails;
-import com.fpoly.datn.service.BrandService;
-import com.fpoly.datn.service.CategoryService;
-import com.fpoly.datn.service.ImageService;
-import com.fpoly.datn.service.ProductService;
+import com.fpoly.datn.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -50,6 +47,9 @@ public class ProductController {
     private BrandService brandService;
 
     @Autowired
+    private SoleService soleService;
+
+    @Autowired
     private CategoryService categoryService;
 
     @Autowired
@@ -61,11 +61,15 @@ public class ProductController {
                             @RequestParam(defaultValue = "", required = false) String name,
                             @RequestParam(defaultValue = "", required = false) String category,
                             @RequestParam(defaultValue = "", required = false) String brand,
+                            @RequestParam(defaultValue = "", required = false) String sole,
                             @RequestParam(defaultValue = "1", required = false) Integer page) {
 
         //Lấy danh sách nhãn hiệu
         List<Brand> brands = brandService.getListBrand();
         model.addAttribute("brands", brands);
+
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles", soles);
         //Lấy danh sách danh mục
         List<Category> categories = categoryService.getListCategories();
         model.addAttribute("categories", categories);
@@ -88,6 +92,9 @@ public class ProductController {
         //Lấy danh sách nhãn hiệu
         List<Brand> brands = brandService.getListBrand();
         model.addAttribute("brands", brands);
+
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles", soles);
         //Lấy danh sách danh mục
         List<Category> categories = categoryService.getListCategories();
         model.addAttribute("categories", categories);
@@ -115,6 +122,9 @@ public class ProductController {
         List<Brand> brands = brandService.getListBrand();
         model.addAttribute("brands", brands);
 
+        List<Sole> soles = soleService.getListSole();
+        model.addAttribute("soles", soles);
+
         //Lấy danh sách size
         model.addAttribute("sizeVN", SIZE_VN);
 
@@ -130,6 +140,7 @@ public class ProductController {
                                                   @RequestParam(defaultValue = "", required = false) String name,
                                                   @RequestParam(defaultValue = "", required = false) String category,
                                                   @RequestParam(defaultValue = "", required = false) String brand,
+                                                  @RequestParam(defaultValue = "", required = false) String sole,
                                                   @RequestParam(defaultValue = "1", required = false) Integer page) {
         Page<Product> products = productService.adminGetListProduct(id, name, category, brand, page);
         return ResponseEntity.ok(products);

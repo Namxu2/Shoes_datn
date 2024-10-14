@@ -11,6 +11,7 @@ public class Contant {
 
     //Limit
     public static final int LIMIT_BRAND = 10;
+    public static final int LIMIT_SOLE = 10;
     public static final int LIMIT_CATEGORY = 10;
     public static final int LIMIT_PRODUCT = 10;
     public static final int LIMIT_POST = 10;

@@ -207,6 +207,10 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @ManyToOne
+    @JoinColumn(name = "sole_id")
+    private Sole sole;
+
     @ManyToMany
     @JoinTable(
             name = "product_category",
